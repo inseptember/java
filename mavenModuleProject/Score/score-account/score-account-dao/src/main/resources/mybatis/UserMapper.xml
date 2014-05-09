@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="org.wf.score.account.dao.UserDao">
+	<select id="get" parameterType="int" resultType="org.wf.score.account.entity.User">
+		select *
+		from user
+		where id=#{id}
+	</select>
+
+	<select id="search" parameterType="org.wf.score.account.entity.User" resultType="org.wf.score.account.entity.User">
+		select *
+		from user
+		<where>
+			<if test="name != null">
+				and name=#{name}
+			</if>
+		</where>
+	</select>
+
+	<insert id="save" parameterType="org.wf.score.account.entity.User" useGeneratedKeys="true" keyProperty="id">
+		insert into user 
+		(code, name)
+		values (
+		#{code}, #{name})
+	</insert>
+	
+	<!-- 删除用户 -->
+	<delete id="delete" parameterType="int">
+	     delete from user where id=#{id}
+	</delete>
+</mapper> 
